@@ -1,10 +1,13 @@
 name: "JiraLinkdePullRequestaction"
 description: "Check the PR Name and adds Labels"
 inputs:
-  title: # id of input
+  pr_title: 
     description: "the PR Title"
     required: true
-  JIRA_Token:
+  github_token: 
+    description: "the github token"
+    required: true
+  jira_token:
      description: "the Token to access the JIRA API"
     required: true
 outputs:
