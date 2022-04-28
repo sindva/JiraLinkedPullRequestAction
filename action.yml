@@ -1,13 +1,15 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "JiraLinkdePullRequestaction"
+description: "Check the PR Name and adds Labels"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  title: # id of input
+    description: "the PR Title"
     required: true
-    default: '1000'
+  JIRA_Token:
+     description: "the Token to access the JIRA API"
+    required: true
 outputs:
   time: # output will be available to future steps
-    description: 'The current time after waiting'
+    description: "The current time after waiting"
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
