@@ -4,6 +4,7 @@ on:
     types: [opened, reopened, synchronize]
 
   # test action works running from the graph
+jobs:
   test:
     runs-on: ubuntu-latest
     steps:
@@ -14,3 +15,4 @@ on:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          jira_token: ${{ secrets.GITHUB_TOKEN }}
