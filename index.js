@@ -12,7 +12,6 @@ async function run() {
     const owner = core.getInput('owner', {required: true});
     const pr_number = core.getInput('pr_number', {required: true});
     const github_token = core.getInput('github_token', {required: true});    
-    const jira_token = core.getInput('jira_token', {required: true});
 
     const getJiraTicketsFromPrTitle = ( ) => {
       const trimmedTitle=title.replaceAll("\\s","")
@@ -28,7 +27,7 @@ async function run() {
     });
 
     //stage ("check Linked JIRA's") {
-    getJiraTicketsFromPrTitle()
+    getJiraTicketsFromPrTitle(pullRequestContent)
 
   } catch (error) {
     core.setFailed(error.message);
