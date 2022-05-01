@@ -15,7 +15,7 @@ async function run() {
 
     const getJiraTicketsFromPrTitle = ( ) => {
       const trimmedTitle=title.replaceAll("\\s","")
-      const JIRA_TICKETS  = trimmedTitle.split('-')[0].split('\\|')
+      const JIRA_TICKETS  = trimmedTitle.split('-')[0].split('|')
       core.info( ` JIRA Ticket ${JIRA_TICKETS}`)
     }
 
