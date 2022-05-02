@@ -26,7 +26,8 @@
   "homepage": "https://github.com/yanniser/JiraLinkedPullRequestAction#readme",
   "dependencies": {
     "@actions/core": "^1.2.5",
-    "@actions/github": "^5.0.1"
+    "@actions/github": "^5.0.1",
+    "jira.js": "^2.13.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
