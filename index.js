@@ -57,7 +57,7 @@ async function setPrMilestone(milestoneToSet) {
 
 
 async function getJiraTicket (ticket , jira_token ) {
-  core.info(`in await json xyzw2 getJiraTicket ${ticket} ${jira_token}`)
+  core.info(`in  getJiraTicket ${ticket} `)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
   const toto = fetch(url, {
     method: 'GET',
