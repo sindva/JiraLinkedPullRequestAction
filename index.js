@@ -41,9 +41,8 @@ async function getJiraTicket (ticket , jira_token ) {
     core.info(
       ` getJiraTicket Response: ${response.status} ${response.statusText}`
     );
-    return response.text();
+    return JSON.parse(response.text())
   })
-  .then(text => core.info(text))
   .catch(err => core.info(err));
 }
 
