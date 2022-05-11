@@ -100,7 +100,7 @@ async function run() {
         owner,
         repo,
         pull_number: pr_number,
-        body: { ...pullRequestContent, milestone: milestoneToSet }
+        body: { ...pullRequestContent, milestone: 1 }
       });
     }
 
