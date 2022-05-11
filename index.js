@@ -28,7 +28,7 @@ async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
 }
 
 async function getJiraTicket (ticket , jira_token ) {
-  core.info(`in json getJiraTicket ${ticket} ${jira_token}`)
+  core.info(`in await json getJiraTicket ${ticket} ${jira_token}`)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
   fetch(url, {
     method: 'GET',
@@ -103,7 +103,7 @@ async function run() {
     }
 
     setJiraTicketAControler(JIRA_TICKETS, jira_token)
-    const jsonTicket = getJiraTicket(JIRA_TICKETS[0], jira_token)
+    const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token)
     //on récupere la liste des etiquettes du Jira
     const etiquettesTicketJira = jsonTicket.fields.labels
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
