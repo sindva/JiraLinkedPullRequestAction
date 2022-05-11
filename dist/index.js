@@ -8548,7 +8548,7 @@ async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
-    core.info(`Processing PR___milestone await:${title}  ...`)
+    core.info(`Processing PR___milestone awaiting:${title}  ...`)
 
     const repo = core.getInput('repo', {required: true})
     const owner = core.getInput('owner', {required: true})
@@ -8587,10 +8587,11 @@ async function run() {
 
     core.info('Traitement du Milestone:')
     const milestoneNumberToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
+    core.info(`milestoneNumberToSet:${milestoneNumberToSet}`)
     const milestoneToSet = await octokit.rest.issues.getMilestone({
       owner,
       repo,
-      milestone_number: milestoneNumberToSet,
+      milestone_number: 1,
     });
 
     setPrMilestone( milestoneToSet)
