@@ -117,7 +117,7 @@ async function run() {
 
     core.info('Traitement du Milestone:')
     const milestoneNumberToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
-    const milestoneToSet = octokit.rest.issues.getMilestone({
+    const milestoneToSet = await octokit.rest.issues.getMilestone({
       owner,
       repo,
       milestone_number: milestoneNumberToSet,
