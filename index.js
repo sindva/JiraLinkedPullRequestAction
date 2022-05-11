@@ -83,7 +83,7 @@ async function run() {
     const pr_number = core.getInput('pr_number', {required: true})
     const github_token = core.getInput('github_token', {required: true})
     const jira_token = core.getInput('jira_token', {required: true})
-    const JIRA_TICKETS = core.getInput('jira_tickets', {required: true})
+    const JIRA_TICKETS = JSON.parse( core.getInput('jira_tickets', {required: true}) )
 
     const octokit = new github.getOctokit(github_token)
     const { data: pullRequestContent } = await octokit.rest.pulls.get({
