@@ -20,5 +20,5 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          jira_token: ${{ secrets.GITHUB_TOKEN }}
+          jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
