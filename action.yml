@@ -16,6 +16,9 @@ inputs:
   jira_token:
     description: "the Token to access the JIRA API"
     required: true
+  jira_tickets:
+    description: "the Jira ticket list to update"
+    required: true
 outputs:
   time: # output will be available to future steps
     description: "The current time after waiting"
