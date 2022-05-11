@@ -8510,7 +8510,7 @@ async function getJiraTicket (ticket , jira_token ) {
   .then(response =>  {
     const res =response.json()
     core.info (`response ${res}`)
-    return res()
+    return res
   })
   //.then(data => core.info(`fields ${data.fields}` ))
   .catch(err => core.info(err));
