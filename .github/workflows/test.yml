@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: extracteur
         id: extracter
-        uses: yanniser/extract-jira-tickets-from-pr-title@v2.0.1
+        uses: yanniser/extract-jira-tickets-from-pr-title@v2.0.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: ./
