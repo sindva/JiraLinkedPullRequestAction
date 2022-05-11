@@ -75,7 +75,7 @@ async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
-    core.info(`Processing PR_:${title}  ...`)
+    core.info(`Processing PR:${title}  ...`)
 
     const repo = core.getInput('repo', {required: true})
     const owner = core.getInput('owner', {required: true})
