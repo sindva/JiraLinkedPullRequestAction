@@ -8498,6 +8498,7 @@ async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
     .catch(err => core.info(err));
 }
 
+/*
 async function setPrMilestone(milestoneToSet) {
   core.info(`after  milestoneToSet ${milestoneToSet} `);
   const url =
@@ -8522,6 +8523,7 @@ async function setPrMilestone(milestoneToSet) {
     .then((text) => core.info(text))
     .catch((err) => core.info(err));
 }
+*/
 
 
 async function getJiraTicket (ticket , jira_token ) {
@@ -8611,8 +8613,8 @@ async function run() {
       repo,
       milestone_number: 1,
     });
-    core.info(`milestoneToSet ${JSON.stringify(milestoneToSet)}`)
-    setPrMilestone( milestoneToSet,pullRequestContent)
+    core.info(`milestoneToSet ${JSON.stringify(milestoneToSet)} ${pullRequestContent}`)
+    //setPrMilestone( milestoneToSet,pullRequestContent)
 
   } catch (error) {
     core.setFailed(error.message);

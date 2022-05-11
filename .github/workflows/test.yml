@@ -22,3 +22,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
+      - name: name_of_step
+        run: |
+          curl --request PATCH \
+          --url ${{ github.event.pull_request.issue_url }} \
+          --header 'authorization: token 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' \
+          --data '{"title": "wazza","milestone": 1}'
