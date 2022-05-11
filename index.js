@@ -63,7 +63,7 @@ async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
   } else if (  etiquettesTicketJira.contains('ARGON') ) {
       core.info ('on set ARGON')
       return 54
-  } else return 54 //par defaut fluor
+  } else return 54 
 }
 
 
