@@ -55,16 +55,16 @@ async function  setJiraTicketAControler ( JIRA_TICKETS, jira_token) {
 
 
 async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
-  if ( etiquettesTicketJira.contains('FLUOR-BIS') ) {
+  if ( etiquettesTicketJira.includes('FLUOR-BIS') ) {
       core.info ('on set FLUOR-BIS')
       return 55
-  } else if (  etiquettesTicketJira.contains('FLUOR') ) {
+  } else if (  etiquettesTicketJira.includes('FLUOR') ) {
       core.info ('on set FLUOR')
       return 53
-  } else if (  etiquettesTicketJira.contains('PALLADIUM') ) {
+  } else if (  etiquettesTicketJira.includes('PALLADIUM') ) {
       core.info ('on set PALLADIUM')
       return 52
-  } else if (  etiquettesTicketJira.contains('ARGON') ) {
+  } else if (  etiquettesTicketJira.includes('ARGON') ) {
       core.info ('on set ARGON')
       return 54
   } else return 54 
@@ -96,6 +96,7 @@ async function run() {
     core.info(`Processing PR:${title}  ...`)
     const setPrMilestone =  ( etiquettesTicketJira ) => {
       const milestoneToSet =  getMileStoneFromEtiquette(etiquettesTicketJira)
+      core.info(`after  milestoneToSet ${milestoneToSet}`)
       octokit.rest.pulls.update({
         owner,
         repo,
@@ -116,7 +117,7 @@ async function run() {
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
 
     core.info('Traitement du Milestone:')
-    setPrMilestone( etiquettesTicketJira.split(','))
+    setPrMilestone( etiquettesTicketJira)
 
   } catch (error) {
     core.setFailed(error.message);
