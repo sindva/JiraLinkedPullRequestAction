@@ -8507,8 +8507,8 @@ async function getJiraTicket (ticket , jira_token ) {
       'Accept': 'application/json'
     }
   })
-  .then(response =>  response.json())
-  .then(data => core.info(`fields ${data.fields}` ))
+  .then(response =>  {core.info (`${response.json()}`)})
+  //.then(data => core.info(`fields ${data.fields}` ))
   .catch(err => core.info(err));
 }
 
