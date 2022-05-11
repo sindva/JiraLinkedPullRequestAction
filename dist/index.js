@@ -8548,7 +8548,7 @@ async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
-    core.info(`Processing PR___milestone awaiting title:${title}  ...`)
+    core.info(`Processing PR__time passes:${title}  ...`)
 
     const repo = core.getInput('repo', {required: true})
     const owner = core.getInput('owner', {required: true})
@@ -8593,7 +8593,7 @@ async function run() {
       repo,
       milestone_number: 1,
     });
-
+    core.info(`milestoneToSet ${JSON.stringify(milestoneToSet)}`)
     setPrMilestone( milestoneToSet)
 
   } catch (error) {
