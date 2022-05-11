@@ -26,5 +26,5 @@ jobs:
         run: |
           curl --request PATCH \
           --url ${{ github.event.pull_request.issue_url }} \
-          --header 'authorization: token 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' \
+          --header 'authorization: token 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' \
           --data '{"title": "wazza","milestone": 1}'
