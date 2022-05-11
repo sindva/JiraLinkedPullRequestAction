@@ -8500,22 +8500,28 @@ async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
 async function getJiraTicket (ticket , jira_token ) {
   core.info(`in await json xyzw getJiraTicket ${ticket} ${jira_token}`)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
-  fetch(url, {
+  const toto = fetch(url, {
     method: 'GET',
     headers: {
       'Authorization': `Basic ${jira_token}`,
       'Accept': 'application/json'
     }
   })
-  .then(response =>  {core.info (`${response.json()}`)})
+  .then(response =>  {
+    core.info (`response ${response.json()}`)
+    return response.json()
+  })
   //.then(data => core.info(`fields ${data.fields}` ))
   .catch(err => core.info(err));
+
+  return toto
 }
 
 async function  setJiraTicketAControler ( JIRA_TICKETS) {
   JIRA_TICKETS.forEach ( ticket => setJiraTicketStatus(ticket, "41"))
 }
 
+/*
 async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
   if ( etiquettesTicketJira.contains('FLUOR-BIS') ) {
       core.info ('on set FLUOR-BIS')
@@ -8531,7 +8537,7 @@ async function getMileStoneFromEtiquette ( etiquettesTicketJira ) {
       return 54
   } else return 54 
 }
-
+*/
 
 
 
@@ -8543,13 +8549,16 @@ async function run() {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR___:${title}  ...`)
 
+    /*
     const repo = core.getInput('repo', {required: true})
     const owner = core.getInput('owner', {required: true})
     const pr_number = core.getInput('pr_number', {required: true})
     const github_token = core.getInput('github_token', {required: true})
+    */
     const jira_token = core.getInput('jira_token', {required: true})
     const JIRA_TICKETS = JSON.parse( core.getInput('jira_tickets', {required: true}) )
 
+    /*
     const octokit = new github.getOctokit(github_token)
     const { data: pullRequestContent } = await octokit.rest.pulls.get({
       owner,
@@ -8557,7 +8566,6 @@ async function run() {
       pull_number: pr_number,
     });
     core.info(`Processing PR:${title}  ...`)
-
     const setPrMilestone =  ( etiquettesTicketJira ) => {
       const milestoneToSet =  getMileStoneFromEtiquette(etiquettesTicketJira)
       octokit.rest.pulls.update({
@@ -8567,6 +8575,7 @@ async function run() {
         body: { ...pullRequestContent, milestone: milestoneToSet }
       });
     }
+    */
 
     core.info(`before  setJiraTicketAControler`)
     setJiraTicketAControler(JIRA_TICKETS, jira_token)
@@ -8575,12 +8584,13 @@ async function run() {
     core.info(`after  getJiraTicket`)
     //on récupere la liste des etiquettes du Jira
     const etiquettesTicketJira = jsonTicket.fields.labels
-    core.info(`after  etiquettesTicketJira`)
+    core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`)
+    /*
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
 
     core.info('Traitement du Milestone:')
     setPrMilestone( etiquettesTicketJira)
-
+*/
 
   } catch (error) {
     core.setFailed(error.message);
