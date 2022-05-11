@@ -116,7 +116,7 @@ async function run() {
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
 
     core.info('Traitement du Milestone:')
-    setPrMilestone( etiquettesTicketJira)
+    setPrMilestone( etiquettesTicketJira.split(','))
 
   } catch (error) {
     core.setFailed(error.message);
