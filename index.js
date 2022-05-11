@@ -39,7 +39,7 @@ async function setPrMilestone(milestoneToSet) {
 
   fetch(url, {
     method: "PATCH",
-    body: JSON.stringify(jsonData),
+    body: jsonData,
     headers: {
       Authorization: `Basic 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`,
       Accept: "application/json",
