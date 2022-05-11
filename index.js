@@ -28,7 +28,7 @@ async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
 }
 
 async function getJiraTicket (ticket , jira_token ) {
-  core.info(`in getJiraTicket ${ticket} ${jira_token}`)
+  core.info(`in json getJiraTicket ${ticket} ${jira_token}`)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
   fetch(url, {
     method: 'GET',
@@ -41,7 +41,7 @@ async function getJiraTicket (ticket , jira_token ) {
     core.info(
       ` getJiraTicket Response: ${response.status} ${response.statusText}`
     );
-    return JSON.parse(response.text())
+    return response.json()
   })
   .catch(err => core.info(err));
 }
