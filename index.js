@@ -95,12 +95,12 @@ async function run() {
     });
     core.info(`Processing PR ZZZ:${title}  ...`)
     const setPrMilestone =  ( milestoneToSet ) => {
-      core.info(`after  milestoneToSet ${milestoneToSet} ${pullRequestContent}`)
+      core.info(`after  milestoneToSet ${milestoneToSet} ${pullRequestContent.milestone}`)
       octokit.rest.pulls.update({
         owner,
         repo,
         pull_number: pr_number,
-        body: { ...pullRequestContent, milestone: 1 }
+        body: { ...pullRequestContent, milestone: milestoneToSet }
       });
     }
 
@@ -116,7 +116,13 @@ async function run() {
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
 
     core.info('Traitement du Milestone:')
-    const milestoneToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
+    const milestoneNumberToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
+    const milestoneToSet = octokit.rest.issues.getMilestone({
+      owner,
+      repo,
+      milestone_number: milestoneNumberToSet,
+    });
+
     setPrMilestone( milestoneToSet)
 
   } catch (error) {
