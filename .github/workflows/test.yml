@@ -26,5 +26,5 @@ jobs:
         run: |
           curl --request PATCH \
           --url ${{ github.event.pull_request.issue_url }} \
-          --header 'authorization: token ${{ secrets.JIRA_TOKEN }}' \
+          --header 'authorization: token ${{ secrets.ACTION_GITHUB_TOKEN }}' \
           --data '{"title": "wazzabe","milestone": 1}'
