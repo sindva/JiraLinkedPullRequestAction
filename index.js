@@ -94,8 +94,7 @@ async function run() {
       pull_number: pr_number,
     });
     core.info(`Processing PR:${title}  ...`)
-    const setPrMilestone =  ( etiquettesTicketJira ) => {
-      const milestoneToSet =  getMileStoneFromEtiquette(etiquettesTicketJira)
+    const setPrMilestone =  ( milestoneToSet ) => {
       core.info(`after  milestoneToSet ${milestoneToSet}`)
       octokit.rest.pulls.update({
         owner,
@@ -117,7 +116,8 @@ async function run() {
     core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
 
     core.info('Traitement du Milestone:')
-    setPrMilestone( etiquettesTicketJira)
+    const milestoneToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
+    setPrMilestone( milestoneToSet)
 
   } catch (error) {
     core.setFailed(error.message);
