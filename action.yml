@@ -20,8 +20,8 @@ inputs:
     description: "the Jira ticket list to update"
     required: true
 outputs:
-  time: # output will be available to future steps
-    description: "The current time after waiting"
+  milestone: # output will be available to future steps
+    description: "The milestone number to set"
 runs:
   using: "node16"
   main: "dist/index.js"

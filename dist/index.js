@@ -8578,19 +8578,9 @@ async function run() {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR__time passes data:${title}  ...`)
 
-    const repo = core.getInput('repo', {required: true})
-    const owner = core.getInput('owner', {required: true})
-    const pr_number = core.getInput('pr_number', {required: true})
-    const github_token = core.getInput('github_token', {required: true})
     const jira_token = core.getInput('jira_token', {required: true})
     const JIRA_TICKETS = JSON.parse( core.getInput('jira_tickets', {required: true}) )
-
-    const octokit = new github.getOctokit(github_token)
-    const { data: pullRequestContent } = await octokit.rest.pulls.get({
-      owner,
-      repo,
-      pull_number: pr_number,
-    });
+    
     core.info(`Processing PR ZZZ:${title}  ...`)
 
 
@@ -8607,14 +8597,9 @@ async function run() {
 
     core.info('Traitement du Milestone:')
     const milestoneNumberToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
-    core.info(`milestoneNumberToSet:${milestoneNumberToSet}`)
-    const { data : milestoneToSet} = await octokit.rest.issues.getMilestone({
-      owner,
-      repo,
-      milestone_number: 1,
-    });
-    core.info(`milestoneToSet ${JSON.stringify(milestoneToSet)} ${pullRequestContent}`)
-    //setPrMilestone( milestoneToSet,pullRequestContent)
+    core.info(`we output milestone number:${milestoneNumberToSet}`)
+    core.setOutput('milestone',milestoneNumberToSet)
+    
 
   } catch (error) {
     core.setFailed(error.message);
