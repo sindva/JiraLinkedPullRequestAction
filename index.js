@@ -96,11 +96,11 @@ async function run() {
     core.info(`Processing PR ZZZ:${title}  ...`)
     const setPrMilestone =  ( milestoneToSet ) => {
       core.info(`after  milestoneToSet ${milestoneToSet} ${pullRequestContent.milestone}`)
-      octokit.rest.pulls.update({
+      octokit.rest.issues.update({
         owner,
         repo,
-        pull_number: pr_number,
-        title: "5678-new title"
+        issue_number: 14,
+        milestone: 1
       });
     }
 
