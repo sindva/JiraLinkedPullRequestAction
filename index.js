@@ -28,6 +28,32 @@ async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
     .catch(err => core.info(err));
 }
 
+async function setPrMilestone(milestoneToSet) {
+  core.info(`after  milestoneToSet ${milestoneToSet} `);
+  const url =
+    "https://api.github.com/repos/yanniser/JiraLinkedPullRequestAction/issues/14";
+  const jsonData = {
+    title: "5678-updating a good work",
+    milestone: 1,
+  };
+
+  fetch(url, {
+    method: "PATCH",
+    body: JSON.stringify(jsonData),
+    headers: {
+      Authorization: `Basic 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`,
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      core.info(`Response: ${response.status} ${response.statusText}`);
+      return response.text();
+    })
+    .then((text) => core.info(text))
+    .catch((err) => core.info(err));
+}
+
+
 async function getJiraTicket (ticket , jira_token ) {
   core.info(`in await json xyzw2 getJiraTicket ${ticket} ${jira_token}`)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
@@ -94,15 +120,7 @@ async function run() {
       pull_number: pr_number,
     });
     core.info(`Processing PR ZZZ:${title}  ...`)
-    const setPrMilestone =  ( milestoneToSet ) => {
-      core.info(`after  milestoneToSet ${milestoneToSet} ${pullRequestContent.milestone}`)
-      octokit.rest.issues.update({
-        owner,
-        repo,
-        issue_number: 14,
-        milestone: 1
-      });
-    }
+
 
     core.info(`before  setJiraTicketAControler`)
     setJiraTicketAControler(JIRA_TICKETS, jira_token)
@@ -124,7 +142,7 @@ async function run() {
       milestone_number: 1,
     });
     core.info(`milestoneToSet ${JSON.stringify(milestoneToSet)}`)
-    setPrMilestone( milestoneToSet)
+    setPrMilestone( milestoneToSet,pullRequestContent)
 
   } catch (error) {
     core.setFailed(error.message);
