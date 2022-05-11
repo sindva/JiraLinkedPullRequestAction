@@ -5,9 +5,10 @@ const fetch = require('node-fetch');
 async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+JIRA_TICKET+'/transitions'
   const jsonData = {
-      transition:{
-        id:status}
-      }
+    transition: {
+      id: status,
+    },
+  };
 
     fetch(url, {
       method: 'POST',
@@ -48,8 +49,8 @@ async function getJiraTicket (ticket , jira_token ) {
   return toto
 }
 
-async function  setJiraTicketAControler ( JIRA_TICKETS) {
-  JIRA_TICKETS.forEach ( ticket => setJiraTicketStatus(ticket, "41"))
+async function  setJiraTicketAControler ( JIRA_TICKETS, jira_token) {
+  JIRA_TICKETS.forEach ( ticket => setJiraTicketStatus(ticket, "41", jira_token))
 }
 
 /*
