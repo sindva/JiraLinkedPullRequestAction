@@ -9,10 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - name: extracteur
+        id: extracter
+        uses: yanniser/extract-jira-tickets-from-pr-title@v2.0.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: uses this action
+        uses: ./
         with:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
           pr_number: ${{ github.event.number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          jira_token: ${{ secrets.GITHUB_TOKEN }}
+          jira_token: ${{ secrets.JIRA_TOKEN }}
+          jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
+      - name: update milestone
+        run: |
+          curl --request PATCH \
+          --url ${{ github.event.pull_request.issue_url }} \
+          --header 'authorization: token ${{ secrets.ACTION_GITHUB_TOKEN }}' \
+          --data '{"title":"6789-the revenge", "milestone": 2}'
