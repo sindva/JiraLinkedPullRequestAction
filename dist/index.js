@@ -8503,7 +8503,7 @@ async function setPrMilestone(milestoneToSet) {
   const url =
     "https://api.github.com/repos/yanniser/JiraLinkedPullRequestAction/issues/14";
   const jsonData = {
-    title: "5678-updating a good work",
+    title: "5678-updating a bad work",
     milestone: 1,
   };
 
@@ -8516,7 +8516,7 @@ async function setPrMilestone(milestoneToSet) {
     },
   })
     .then((response) => {
-      core.info(`Response: ${response.status} ${response.statusText}`);
+      core.info(`Response setPrMilestone: ${response.status} ${response.statusText}`);
       return response.text();
     })
     .then((text) => core.info(text))
