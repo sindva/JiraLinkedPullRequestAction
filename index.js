@@ -2,60 +2,6 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const fetch = require('node-fetch');
 
-async function setJiraTicketStatus ( JIRA_TICKET, status, jira_token )  {
-  const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+JIRA_TICKET+'/transitions'
-  const jsonData = {
-    transition: {
-      id: status,
-    },
-  };
-
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify( jsonData),
-      headers: {
-        'Authorization': `Basic ${jira_token}`,
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      core.info(
-        `Response: ${response.status} ${response.statusText}`
-      );
-      return response.text();
-    })
-    .then(text => core.info(text))
-    .catch(err => core.info(err));
-}
-
-/*
-async function setPrMilestone(milestoneToSet) {
-  core.info(`after  milestoneToSet ${milestoneToSet} `);
-  const url =
-    "https://api.github.com/repos/yanniser/JiraLinkedPullRequestAction/issues/14";
-  const jsonData = {
-    title: "5678-updating a bad work",
-    milestone: 1,
-  };
-
-  fetch(url, {
-    method: "PATCH",
-    body: jsonData,
-    headers: {
-      Authorization: `Basic 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`,
-      Accept: "application/json",
-    },
-  })
-    .then((response) => {
-      core.info(`Response setPrMilestone: ${response.status} ${response.statusText}`);
-      return response.text();
-    })
-    .then((text) => core.info(text))
-    .catch((err) => core.info(err));
-}
-*/
-
-
 async function getJiraTicket (ticket , jira_token ) {
   core.info(`in  getJiraTicket ${ticket} `)
   const url = "https://support.apps.darva.com/"+'rest/api/2/issue/SINAPPSHAB-'+ticket
@@ -75,10 +21,6 @@ async function getJiraTicket (ticket , jira_token ) {
   .catch(err => core.info(err));
 
   return toto
-}
-
-async function  setJiraTicketAControler ( JIRA_TICKETS, jira_token) {
-  JIRA_TICKETS.forEach ( ticket => setJiraTicketStatus(ticket, "41", jira_token))
 }
 
 
@@ -111,24 +53,28 @@ async function run() {
     const jira_token = core.getInput('jira_token', {required: true})
     const JIRA_TICKETS = JSON.parse( core.getInput('jira_tickets', {required: true}) )
     
-    core.info(`Processing PR ZZZ:${title}  ...`)
+    core.info(`Processing PR :${title}  ...`)
+
+    if (JIRA_TICKETS.lenght > 0) {
+      const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
+      core.info(`after  getJiraTicket`);
+      //on récupere la liste des etiquettes du Jira
+      const etiquettesTicketJira = jsonTicket.fields.labels;
+      core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
+
+      core.info(
+        `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
+      );
+
+      core.info("Traitement du Milestone:");
+      const milestoneNumberToSet = await getMileStoneFromEtiquette(
+        etiquettesTicketJira
+      );
+      core.info(`we output milestone number:${milestoneNumberToSet}`);
+      core.setOutput("milestone", milestoneNumberToSet);
+    }
 
 
-    core.info(`before  setJiraTicketAControler`)
-    setJiraTicketAControler(JIRA_TICKETS, jira_token)
-    core.info(`after  setJiraTicketAControler`)
-    const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token)
-    core.info(`after  getJiraTicket`)
-    //on récupere la liste des etiquettes du Jira
-    const etiquettesTicketJira = jsonTicket.fields.labels
-    core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`)
-
-    core.info(`Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`)
-
-    core.info('Traitement du Milestone:')
-    const milestoneNumberToSet =  await getMileStoneFromEtiquette(etiquettesTicketJira)
-    core.info(`we output milestone number:${milestoneNumberToSet}`)
-    core.setOutput('milestone',milestoneNumberToSet)
     
 
   } catch (error) {
