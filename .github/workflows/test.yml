@@ -15,6 +15,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: uses this action
+        id: reader
         uses: ./
         with:
           owner: ${{ github.repository_owner }}
@@ -28,4 +29,4 @@ jobs:
           curl --request PATCH \
           --url ${{ github.event.pull_request.issue_url }} \
           --header 'authorization: token ${{ secrets.ACTION_GITHUB_TOKEN }}' \
-          --data '{"title":"6789-the revenge", "milestone": 2}'
+          --data '{"title":"6789-the revenge", "milestone": ${{steps.reader.outputs.milestone}}}'
