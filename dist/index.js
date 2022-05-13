@@ -8495,6 +8495,10 @@ async function getJiraTicket(ticket, jira_token) {
 }
 
 async function getMileStoneFromEtiquette(etiquettesTicketJira) {
+  if (etiquettesTicketJira.includes("PHOSPHORE")) {
+    core.info("on set PHOSPHORE");
+    return 2;
+  }
   if (etiquettesTicketJira.includes("FLUOR-BIS")) {
     core.info("on set FLUOR-BIS");
     return 55;
