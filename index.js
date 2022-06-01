@@ -5,8 +5,8 @@ const defaultMilestone = 54;
 
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
-  const url =
-    "https://support.apps.darva.com/" + "rest/api/2/issue/SINAPPSHAB-" + ticket;
+  const jira_url_Api= core.getInput("jira_url_Api", { required: true });
+  const url = jira_url_Api + ticket;
   const toto = fetch(url, {
     method: "GET",
     headers: {
