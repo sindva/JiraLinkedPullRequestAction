@@ -8522,7 +8522,7 @@ async function run() {
 
     const jira_token = core.getInput("jira_token", { required: true });
     const JIRA_TICKETS = JSON.parse(
-      core.getInput("jira_tickets", { required: true })
+      core.getInput("jira_tickets", { required: false }) || []
     );
 
     core.info(`Processing PR :${title}  ...`);
