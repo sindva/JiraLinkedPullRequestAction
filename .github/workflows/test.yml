@@ -11,8 +11,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: extracteur
         id: extracter
-        uses: yanniser/extract-jira-tickets-from-pr-title@0.3.0
+        uses: sindva/extract-jira-tickets-from-pr-title@1.0.3
         with:
+          url_DCKPIC: http://sinappsird-pic-pr-xxx.dckpic.apps.darva.com/core/auth/login
+          urlTicket: https://support.apps.darva.com/browse/SINAPPSHAB-
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: uses this action
         id: reader
