@@ -53,6 +53,7 @@ async function run() {
     const jira_token = core.getInput("jira_token", { required: true });
     core.info(jira_token)
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
+    core.info(inputJiraTickets)
     const JIRA_TICKETS = inputJiraTickets ? [] :  JSON.parse(inputJiraTickets);
 
     core.info(`Processing PR :${title}  ...`);
