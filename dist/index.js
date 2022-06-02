@@ -59308,13 +59308,7 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 54;
   } else return defaultMilestone;
 }
-async function updateMileStone (milestoneNumberToSet){
-   await octokit.rest.issues.updateMilestone({
-    owner,
-    repo,
-    milestone_number: milestoneNumberToSet,
-  });
-}
+
 // most @actions toolkit packages have async methods
 async function run() {
   try {
@@ -59346,13 +59340,20 @@ async function run() {
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
 
-    core.setOutput("milestone", JSON.parse(milestoneNumberToSet));
+    core.setOutput("milestone", milestoneNumberToSet);
     await updateMileStone(milestoneNumberToSet)
     core.info(`milestone ...`);
 
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+async function updateMileStone (milestoneNumberToSet){
+  await octokit.rest.issues.updateMilestone({
+   owner,
+   repo,
+   milestone_number: milestoneNumberToSet,
+ });
 }
 if(octokit){
   run();
