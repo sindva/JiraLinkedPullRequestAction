@@ -16,6 +16,11 @@ jobs:
           url_DCKPIC: http://sinappsird-pic-pr-xxx.dckpic.apps.darva.com/core/auth/login
           urlTicket: https://support.apps.darva.com/browse/SINAPPSHAB-
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: get Api url
+        uses: ./
+        with:
+          jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
+          jira_token: ${{ secrets.JIRA_TOKEN }}
       - name: uses this action
         id: reader
         uses: ./
@@ -26,11 +31,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
-      - name: get Api url
-        uses: ./
-        with:
-          jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
-          jira_token: ${{ secrets.JIRA_TOKEN }}
       - name: update milestone
         run: |
           curl --request PATCH \
