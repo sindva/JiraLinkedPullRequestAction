@@ -59350,7 +59350,8 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-const client = new github.GitHub(jira_token);
+const client = new github.getOctokit(jira_token);
+
 async function updateMileStone (milestoneNumberToSet){
 
 await client.issues.update({
