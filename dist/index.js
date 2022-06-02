@@ -59348,6 +59348,8 @@ async function run() {
 
     core.setOutput("milestone", milestoneNumberToSet);
     await updateMileStone(milestoneNumberToSet)
+    core.info(`milestone ...`);
+
   } catch (error) {
     core.setFailed(error.message);
   }
