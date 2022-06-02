@@ -1,7 +1,7 @@
 name: "units-test"
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, edited]
 
   # test action works running from the graph
 jobs:
