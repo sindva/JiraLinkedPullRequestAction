@@ -59347,7 +59347,7 @@ async function run() {
     core.info(`we output milestone number:${milestoneNumberToSet}`);
 
     core.setOutput("milestone", milestoneNumberToSet);
-    await updateMileStone(milestoneNumberToSet)
+    await updateMileStone(JSON.stringify(milestoneNumberToSet))
     core.info(`milestone ...`);
 
   } catch (error) {
