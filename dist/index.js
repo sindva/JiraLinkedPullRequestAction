@@ -59339,10 +59339,10 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-
-    core.setOutput("milestone", milestoneNumberToSet);
     await updateMileStone(milestoneNumberToSet)
     core.info(`milestone ...`);
+    // core.setOutput("milestone", milestoneNumberToSet);
+  
 
   } catch (error) {
     core.setFailed(error.message);
@@ -59352,7 +59352,7 @@ async function updateMileStone (milestoneNumberToSet){
   await octokit.rest.issues.updateMilestone({
    owner,
    repo,
-   milestone_number: JSON.parse(milestoneNumberToSet),
+   milestone_number: milestoneNumberToSet,
  });
 }
 if(octokit){
