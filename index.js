@@ -46,15 +46,13 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 2;
   } else return defaultMilestone;
 }
-const jira_token = core.getInput("jira_token", { required: true });
-//const pr_num = core.getInput("pr_number", { required: true })
+
 // most @actions toolkit packages have async methods
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR__time passes data:${title}  ...`);
-
- 
+    const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
     core.info(`Processing PR :${title}  ...`);
@@ -76,8 +74,7 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-  // await updateMileStone(milestoneNumberToSet)
-   core.setOutput("milestone", milestoneNumberToSet);
+    core.setOutput("milestone", milestoneNumberToSet);
   
 
   } catch (error) {
@@ -85,16 +82,6 @@ async function run() {
   }
 }
 
-/*async function updateMileStone (milestoneNumberToSet){
-
-await octokit.rest.issues.update({
-  owner,
-  repo,
-  issue_number: pr_num,
-  milestone: milestoneNumberToSet,
-});
-}
-*/
 if(octokit){
   run();
 }
