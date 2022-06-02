@@ -8520,7 +8520,7 @@ async function run() {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR__time passes data:${title}  ...`);
 
-    const jira_token = JSON.parse(core.getInput("jira_token", { required: true }));
+    const jira_token = core.getInput("jira_token", { required: true });
     core.info(jira_token)
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     core.info(inputJiraTickets)
