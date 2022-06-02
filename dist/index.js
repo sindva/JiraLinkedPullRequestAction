@@ -8477,6 +8477,7 @@ async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
   const url = jira_url_Api + ticket;
+  core.info(url)
   const toto = fetch(url, {
     method: "GET",
     headers: {
@@ -8521,7 +8522,6 @@ async function run() {
     core.info(`Processing PR__time passes data:${title}  ...`);
 
     const jira_token = core.getInput("jira_token", { required: true });
-    core.info(jira_token)
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     core.info(inputJiraTickets)
     const JIRA_TICKETS = inputJiraTickets ? [] :  JSON.parse(inputJiraTickets);
