@@ -59341,6 +59341,16 @@ async function run() {
    // await updateMileStone(milestoneNumberToSet)
     //let resp =   await updateMileStone(milestoneNumberToSet)
     //core.info(`milestone ... ${resp}`);
+
+    await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
+      owner: 'OWNER',
+      repo: 'REPO',
+      milestone_number: 1,
+      title: 'v1.0',
+      state: 'open',
+      description: 'Tracking milestone for version 1.0',
+      due_on: '2012-10-09T23:39:01Z'
+    })
     core.setOutput("milestone", milestoneNumberToSet);
   
 
