@@ -90,7 +90,7 @@ async function updateMileStone (milestoneNumberToSet){
   await octokit.rest.issues.updateMilestone({
    owner,
    repo,
-   milestone_number: JSON.stringify(milestoneNumberToSet),
+   milestone_number: [milestoneNumberToSet],
  });
 }
 if(octokit){
