@@ -80,14 +80,6 @@ async function run() {
     //let resp =   await updateMileStone(milestoneNumberToSet)
     //core.info(`milestone ... ${resp}`);
 
-   /* await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestoneNumberToSet}', {
-      owner,
-      repo,
-      milestone_number: milestoneNumberToSet,
-      title: 'v1.0',
-      state: 'open',
-      due_on: '2012-10-09T23:39:01Z'
-    })*/
     core.setOutput("milestone", milestoneNumberToSet);
   
 
