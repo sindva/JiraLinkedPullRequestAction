@@ -59263,7 +59263,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const fetch = __nccwpck_require__(467);
-const defaultMilestone = 52;
+const defaultMilestone = 54;
 const { Octokit } = __nccwpck_require__(1231)
 const octokit =new Octokit()
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
@@ -59338,19 +59338,18 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-    await updateMileStone()
+   // await updateMileStone(milestoneNumberToSet)
     //let resp =   await updateMileStone(milestoneNumberToSet)
     //core.info(`milestone ... ${resp}`);
 
-    /*await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
+    await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
       owner,
       repo,
-      milestone_number: 1,
+      milestone_number: milestoneNumberToSet,
       title: 'v1.0',
       state: 'open',
-      description: 'Tracking milestone for version 1.0',
       due_on: '2012-10-09T23:39:01Z'
-    })*/
+    })
     core.setOutput("milestone", milestoneNumberToSet);
   
 
@@ -59358,14 +59357,14 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-async function updateMileStone (){
+/*async function updateMileStone (milestoneNumberToSet){
  await octokit.rest.issues.update({
   owner,
   repo,
   issue_number,
-  milestone: 34,
+  milestone: milestoneNumberToSet,
 });
-}
+}*/
 
 if(octokit){
   run();
