@@ -59266,8 +59266,7 @@ const fetch = __nccwpck_require__(467);
 const defaultMilestone = 54;
 const { Octokit } = __nccwpck_require__(1231)
 const octokit =new Octokit()
-const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
-const issue_number = github.context.issue.number
+//const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -59306,11 +59305,11 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 52;
   } else if (etiquettesTicketJira.includes("ARGON")) {
     core.info("on set ARGON");
-    return 54;
+    return 2;
   } else return defaultMilestone;
 }
 const jira_token = core.getInput("jira_token", { required: true });
-const pr_num = core.getInput("pr_number", { required: true })
+//const pr_num = core.getInput("pr_number", { required: true })
 // most @actions toolkit packages have async methods
 async function run() {
   try {
@@ -59339,11 +59338,8 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-   await updateMileStone(milestoneNumberToSet)
-    //let resp =   await updateMileStone(milestoneNumberToSet)
-    //core.info(`milestone ... ${resp}`);
-
-    core.setOutput("milestone", milestoneNumberToSet);
+  // await updateMileStone(milestoneNumberToSet)
+   core.setOutput("milestone", milestoneNumberToSet);
   
 
   } catch (error) {
@@ -59351,7 +59347,7 @@ async function run() {
   }
 }
 
-async function updateMileStone (milestoneNumberToSet){
+/*async function updateMileStone (milestoneNumberToSet){
 
 await octokit.rest.issues.update({
   owner,
@@ -59360,7 +59356,7 @@ await octokit.rest.issues.update({
   milestone: milestoneNumberToSet,
 });
 }
-
+*/
 if(octokit){
   run();
 }
