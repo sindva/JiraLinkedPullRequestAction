@@ -77,7 +77,7 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-    await updateMileStone(milestoneNumberToSet)
+    await updateMileStone(milestoneNumberToSet.json())
     core.info(`milestone ...`);
     // core.setOutput("milestone", milestoneNumberToSet);
   
