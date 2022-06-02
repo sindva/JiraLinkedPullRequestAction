@@ -59343,7 +59343,7 @@ async function run() {
     await updateMileStone(milestoneNumberToSet)
     let resp =   await updateMileStone(milestoneNumberToSet)
     core.info(`milestone ... ${resp}`);
-    // core.setOutput("milestone", milestoneNumberToSet);
+    core.setOutput("milestone", milestoneNumberToSet);
   
 
   } catch (error) {
