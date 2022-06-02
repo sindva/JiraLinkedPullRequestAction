@@ -1,5 +1,5 @@
 base-branch:
-  - "(master)"
+  - "(ARGON)"
   - "releases\\/(v\\d+)"
 
 head-branch:
