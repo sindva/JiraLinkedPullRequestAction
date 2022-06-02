@@ -59338,11 +59338,11 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-   // await updateMileStone(milestoneNumberToSet)
+    await updateMileStone()
     //let resp =   await updateMileStone(milestoneNumberToSet)
     //core.info(`milestone ... ${resp}`);
 
-    await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
+    /*await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
       owner,
       repo,
       milestone_number: 1,
@@ -59350,7 +59350,7 @@ async function run() {
       state: 'open',
       description: 'Tracking milestone for version 1.0',
       due_on: '2012-10-09T23:39:01Z'
-    })
+    })*/
     core.setOutput("milestone", milestoneNumberToSet);
   
 
@@ -59358,14 +59358,14 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-/*async function updateMileStone (milestoneNumberToSet){
+async function updateMileStone (){
  await octokit.rest.issues.update({
   owner,
   repo,
   issue_number,
-  milestone: milestoneNumberToSet,
+  milestone: 34,
 });
-}*/
+}
 
 if(octokit){
   run();
