@@ -87,7 +87,7 @@ async function run() {
   }
 }
 async function updateMileStone (milestoneNumberToSet){
- octokit.rest.issues.update({
+ await octokit.rest.issues.update({
   owner,
   repo,
   issue_number,
