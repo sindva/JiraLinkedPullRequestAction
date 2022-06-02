@@ -38,9 +38,3 @@ jobs:
           title: ${{ steps.reader.outputs.milestone}}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: update milestone
-        run: |
-          curl --request PATCH \
-          --url ${{ github.event.pull_request.issue_url }} \
-          --header 'authorization: token ${{ secrets.ACTION_GITHUB_TOKEN }}' \
-          --data '{"title":"6789-the revenge", "milestone": ${{steps.reader.outputs.milestone}}}'
