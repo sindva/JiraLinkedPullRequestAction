@@ -30,3 +30,9 @@ jobs:
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
           jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
+      - name: Pull Request Milestone
+      - uses: iyu/actions-milestone@v1.2.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/milestone.yml
+          silent: true

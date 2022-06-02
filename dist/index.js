@@ -59266,8 +59266,8 @@ const fetch = __nccwpck_require__(467);
 const defaultMilestone = 54;
 const { Octokit } = __nccwpck_require__(1231)
 const octokit =new Octokit()
-const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
-const issue_number = github.context.issue.number
+//const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
+//const issue_number = github.context.issue.number
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -59342,14 +59342,14 @@ async function run() {
     //let resp =   await updateMileStone(milestoneNumberToSet)
     //core.info(`milestone ... ${resp}`);
 
-    await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
+   /* await octokit.request('PATCH /repos/{owner}/{repo}/milestones/{milestoneNumberToSet}', {
       owner,
       repo,
       milestone_number: milestoneNumberToSet,
       title: 'v1.0',
       state: 'open',
       due_on: '2012-10-09T23:39:01Z'
-    })
+    })*/
     core.setOutput("milestone", milestoneNumberToSet);
   
 
