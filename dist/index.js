@@ -8471,7 +8471,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const fetch = __nccwpck_require__(467);
-const defaultMilestone = 54;
+const defaultMilestone = 52;
 
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
