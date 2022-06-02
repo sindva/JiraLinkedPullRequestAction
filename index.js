@@ -88,11 +88,10 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-const client = new github.getOctokit(jira_token);
 
 async function updateMileStone (milestoneNumberToSet){
 
-await client.issues.update({
+await octokit.rest.issues.update({
   owner,
   repo,
   issue_number: pr_num,
