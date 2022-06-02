@@ -8299,6 +8299,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 9820:
+/***/ ((module) => {
+
+module.exports = eval("require")("@octokit/action");
+
+
+/***/ }),
+
 /***/ 2877:
 /***/ ((module) => {
 
@@ -8472,7 +8480,9 @@ const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const fetch = __nccwpck_require__(467);
 const defaultMilestone = 52;
-
+const { Octokit } = __nccwpck_require__(9820)
+const octokit =new Octokit()
+const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -8514,7 +8524,13 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 54;
   } else return defaultMilestone;
 }
-
+async function updateMileStone (milestoneNumberToSet){
+   await octokit.rest.issues.updateMilestone({
+    owner,
+    repo,
+    milestone_number: milestoneNumberToSet,
+  });
+}
 // most @actions toolkit packages have async methods
 async function run() {
   try {
@@ -8545,13 +8561,17 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
+
     core.setOutput("milestone", milestoneNumberToSet);
+    await updateMileStone(milestoneNumberToSet)
   } catch (error) {
     core.setFailed(error.message);
   }
 }
+if(octokit){
+  run();
+}
 
-run();
 
 })();
 

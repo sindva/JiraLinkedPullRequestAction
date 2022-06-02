@@ -2,7 +2,9 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 52;
-
+const { Octokit } = require('@octokit/action')
+const octokit =new Octokit()
+const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -44,7 +46,13 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 54;
   } else return defaultMilestone;
 }
-
+async function updateMileStone (milestoneNumberToSet){
+   await octokit.rest.issues.updateMilestone({
+    owner,
+    repo,
+    milestone_number: milestoneNumberToSet,
+  });
+}
 // most @actions toolkit packages have async methods
 async function run() {
   try {
@@ -75,10 +83,14 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
+
     core.setOutput("milestone", milestoneNumberToSet);
+    await updateMileStone(milestoneNumberToSet)
   } catch (error) {
     core.setFailed(error.message);
   }
 }
+if(octokit){
+  run();
+}
 
-run();
