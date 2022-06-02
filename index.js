@@ -88,8 +88,9 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-async function updateMileStone (milestoneNumberToSet){
 const client = new github.GitHub(jira_token);
+async function updateMileStone (milestoneNumberToSet){
+
 await client.issues.update({
   owner: github.context.repo.owner,
   repo: github.context.repo.repo,
