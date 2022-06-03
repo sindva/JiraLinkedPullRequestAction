@@ -3,4 +3,5 @@ base-branch:
   - "releases\\/(v\\d+)"
 
 head-branch:
+  - "(ARGON)"
   - "feature\\/(v\\d+)\\/.+"
