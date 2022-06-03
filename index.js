@@ -86,7 +86,7 @@ async function updateMileStone(milestoneNumberToSet){
    await octokit.rest.issues.update({
     owner,
     repo,
-    state : 'closed' ,
+    title : 'new title' ,
     issue_number: pr_number,
     milestone: "2",
   });
