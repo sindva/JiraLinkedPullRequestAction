@@ -59267,7 +59267,6 @@ const defaultMilestone = 54;
 const { Octokit } = __nccwpck_require__(1231)
 const octokit =new Octokit()
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
-//const issue_number = github.context.issue.number
 const pr_number= core.getInput("pr_number", { required: true });
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
@@ -59345,6 +59344,7 @@ async function run() {
   }
 }
 async function updateMileStone(milestoneNumberToSet){
+  core.info("in update")
    await octokit.rest.issues.update({
     owner,
     repo,
