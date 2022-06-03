@@ -60778,11 +60778,6 @@ async function run() {
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
-      const octokit = __nccwpck_require__(2785)({
-        log: console,
-      });
-      
-      octokit.request("/");
       core.info("Traitement du Milestone:");
       milestoneNumberToSet = await getMileStoneFromEtiquette(
         etiquettesTicketJira
@@ -60793,6 +60788,11 @@ async function run() {
     core.setOutput("milestone", milestoneNumberToSet);
   } catch (error) {
     core.setFailed(error.message);
+    const octokit = __nccwpck_require__(2785)({
+      log: console,
+    });
+    
+    octokit.request("/");
   }
 }
 async function updateMileStone(milestoneNumberToSet){
