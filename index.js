@@ -87,7 +87,7 @@ async function updateMileStone(milestoneNumberToSet){
     owner,
     repo,
     state : 'open' ,
-    issue_number: pr_number,
+    issu: 'xxxx',
     milestone: milestoneNumberToSet,
   });
 }
