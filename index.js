@@ -83,51 +83,13 @@ async function run() {
 }
 async function updateMileStone(milestoneNumberToSet){
 
-  const milestoneToSet =  {
-    "url": "https://api.github.com/repos/sindva/JiraLinkedPullRequestAction/milestones/5",
-    "html_url": "https://github.com/sindva/JiraLinkedPullRequestAction/milestone/5",
-    "labels_url": "https://api.github.com/repos/sindva/JiraLinkedPullRequestAction/milestones/5/labels",
-    "id": 8045255,
-    "node_id": "MI_kwDOHbpJYc4AesLH",
-    "number": 5,
-    "title": "ARGON",
-    "description": null,
-    "creator": {
-      "login": "sandcht",
-      "id": 99471869,
-      "node_id": "U_kgDOBe3R_Q",
-      "avatar_url": "https://avatars.githubusercontent.com/u/99471869?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/sandcht",
-      "html_url": "https://github.com/sandcht",
-      "followers_url": "https://api.github.com/users/sandcht/followers",
-      "following_url": "https://api.github.com/users/sandcht/following{/other_user}",
-      "gists_url": "https://api.github.com/users/sandcht/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/sandcht/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/sandcht/subscriptions",
-      "organizations_url": "https://api.github.com/users/sandcht/orgs",
-      "repos_url": "https://api.github.com/users/sandcht/repos",
-      "events_url": "https://api.github.com/users/sandcht/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/sandcht/received_events",
-      "type": "User",
-      "site_admin": false
-    },
-    "open_issues": 1,
-    "closed_issues": 0,
-    "state": "open",
-    "created_at": "2022-06-03T07:10:11Z",
-    "updated_at": "2022-06-03T10:06:16Z",
-    "due_on": null,
-    "closed_at": null
-  }
-
   core.info(`in update = ${milestoneNumberToSet} ${pr_number}`)
    await octokit.rest.issues.update({
     owner,
     repo,
     title : 'new title vvvv' ,
     issue_number: pr_number,
-    milestone: 5,
+    milestone: "5",
   });
 }
 if(octokit){
