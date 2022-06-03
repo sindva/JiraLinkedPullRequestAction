@@ -59348,9 +59348,9 @@ async function updateMileStone(milestoneNumberToSet){
    await octokit.rest.issues.update({
     owner,
     repo,
-    state : 'open' ,
-    issu: 'xxxx',
-    milestone: milestoneNumberToSet,
+    state : 'closed' ,
+    issue_number: pr_number,
+    milestone: 2,
   });
 }
 if(octokit){
