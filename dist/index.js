@@ -59268,6 +59268,7 @@ const { Octokit } = __nccwpck_require__(1231)
 const octokit =new Octokit()
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
 const issue_number = github.context.issue.number
+const pr_number= core.getInput("pr_number", { required: true });
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -59346,10 +59347,10 @@ async function run() {
   }
 }
 async function updateMileStone(milestoneNumberToSet){
-  let updateMileStoneResponse = await octokit.rest.issues.update({
+   await octokit.rest.issues.update({
     owner,
     repo,
-    issue_number,
+    issue_number: pr_number,
     milestone: milestoneNumberToSet,
   });
 }
