@@ -1,18 +1,23 @@
 name: "units-test"
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, edited]
 
   # test action works running from the graph
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - name: extracteur
         id: extracter
-        uses: yanniser/extract-jira-tickets-from-pr-title@v2.0.4
+        uses: sindva/extract-jira-tickets-from-pr-title@1.0.4
         with:
+          url_DCKPIC: http://sinappsird-pic-pr-xxx.dckpic.apps.darva.com/core/auth/login
+          urlTicket: https://support.apps.darva.com/browse/SINAPPSHAB-
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: uses this action
         id: reader
@@ -24,6 +29,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
+          jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
       - name: update milestone
         run: |
           curl --request PATCH \

@@ -2,11 +2,10 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 54;
-
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
-  const url =
-    "https://support.apps.darva.com/" + "rest/api/2/issue/SINAPPSHAB-" + ticket;
+  const jira_url_Api= core.getInput("jira_url_Api", { required: true });
+  const url = jira_url_Api + ticket;
   const toto = fetch(url, {
     method: "GET",
     headers: {
@@ -49,12 +48,9 @@ async function run() {
   try {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR__time passes data:${title}  ...`);
-
     const jira_token = core.getInput("jira_token", { required: true });
-    const JIRA_TICKETS = JSON.parse(
-      core.getInput("jira_tickets", { required: true })
-    );
-
+    const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
+    const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
     core.info(`Processing PR :${title}  ...`);
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
@@ -63,11 +59,9 @@ async function run() {
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
       core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
-
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
-
       core.info("Traitement du Milestone:");
       milestoneNumberToSet = await getMileStoneFromEtiquette(
         etiquettesTicketJira
@@ -81,3 +75,5 @@ async function run() {
 }
 
 run();
+
+

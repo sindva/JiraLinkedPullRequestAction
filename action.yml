@@ -19,6 +19,8 @@ inputs:
   jira_tickets:
     description: "the Jira ticket list to update"
     required: true
+  jira_url_Api:
+    required: true
 outputs:
   milestone: # output will be available to future steps
     description: "The milestone number to set"
