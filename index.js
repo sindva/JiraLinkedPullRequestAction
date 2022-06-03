@@ -5,7 +5,7 @@ const defaultMilestone = 54;
 const { Octokit } = require('@octokit/action')
 const octokit =new Octokit()
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
-const issue_number = github.context.issue.number
+//const issue_number = github.context.issue.number
 const pr_number= core.getInput("pr_number", { required: true });
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
