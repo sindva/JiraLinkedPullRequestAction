@@ -90,8 +90,8 @@ async function updateMileStone(milestoneNumberToSet){
   });
 }
 if(octokit){
-  console.warn()
-  console.error()
+  
   run();
+  octokit.log.debug()
 }
 
