@@ -45,6 +45,6 @@ jobs:
         id: createmilestone
         uses: "WyriHaximus/github-action-create-milestone@v1.1.0"
         with:
-          title: ARGON
+          title: FLUOR
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
