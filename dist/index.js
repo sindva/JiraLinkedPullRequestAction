@@ -60357,6 +60357,14 @@ try {
 
 /***/ }),
 
+/***/ 2785:
+/***/ ((module) => {
+
+module.exports = eval("require")("@octokit/rest");
+
+
+/***/ }),
+
 /***/ 8188:
 /***/ ((module) => {
 
@@ -60778,6 +60786,9 @@ async function run() {
     core.info(`we output milestone number:${milestoneNumberToSet}`);
     await updateMileStone(milestoneNumberToSet)
     core.setOutput("milestone", milestoneNumberToSet);
+    const octokit = __nccwpck_require__(2785)({
+      log: console,
+    });
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -60794,9 +60805,7 @@ async function updateMileStone(milestoneNumberToSet){
   });
 }
 if(octokit){
-  
   run();
-  octokit.log.debug()
 }
 
 
