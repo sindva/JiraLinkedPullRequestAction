@@ -1,5 +1,7 @@
+import * as github from '@actions/github';
+
+
 const core = require("@actions/core");
-const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 54;
 const { Octokit } = require('@octokit/action')
