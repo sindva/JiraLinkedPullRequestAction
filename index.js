@@ -76,11 +76,6 @@ async function run() {
     core.setOutput("milestone", milestoneNumberToSet);
   } catch (error) {
     core.setFailed(error.message);
-    const octokit = require("@octokit/rest")({
-      log: console,
-    });
-    
-    octokit.request("/");
   }
 }
 async function updateMileStone(milestoneNumberToSet){
