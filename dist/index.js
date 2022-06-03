@@ -60778,8 +60778,6 @@ async function run() {
     core.info(`we output milestone number:${milestoneNumberToSet}`);
     await updateMileStone(milestoneNumberToSet)
     core.setOutput("milestone", milestoneNumberToSet);
-    console.warn()
-    console.error()
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -60796,6 +60794,8 @@ async function updateMileStone(milestoneNumberToSet){
   });
 }
 if(octokit){
+  console.warn()
+  console.error()
   run();
 }
 
