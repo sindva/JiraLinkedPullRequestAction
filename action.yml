@@ -21,12 +21,6 @@ inputs:
     required: true
   jira_url_Api:
     required: true
-  configuration-path:
-    description: "The path for the milestone configurations"
-    default: ".github/milestone.yml"
-  silent:
-    description: "Be silent in case of any failure"
-    default: false
 outputs:
   milestone: # output will be available to future steps
     description: "The milestone number to set"

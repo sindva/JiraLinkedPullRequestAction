@@ -4,6 +4,8 @@ const fetch = require("node-fetch");
 const defaultMilestone = 54;
 const { Octokit } = require('@octokit/action')
 const octokit =new Octokit()
+const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
+const issue_number = github.context.issue.number
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
@@ -73,6 +75,7 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
+    await updateMileStone()
     core.setOutput("milestone", milestoneNumberToSet);
   
 
@@ -80,7 +83,14 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-
+async function updateMileStone(){
+  await octokit.rest.issues.update({
+    owner,
+    repo,
+    issue_number,
+    milestone:2,
+  });
+}
 if(octokit){
   run();
 }
