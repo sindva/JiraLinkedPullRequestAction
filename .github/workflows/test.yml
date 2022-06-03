@@ -30,11 +30,3 @@ jobs:
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
           jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
-      - name: "Set Milestone"
-        if: github.event.pull_request.milestone == null
-        uses: "WyriHaximus/github-action-set-milestone@master"
-        with:
-          issue_number: ${{ github.event.pull_request.number }}
-          milestone_number: 2
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
