@@ -83,12 +83,12 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-async function updateMileStone(){
-  await octokit.rest.issues.update({
+async function updateMileStone(milestoneNumberToSet){
+  let updateMileStoneResponse = await octokit.rest.issues.update({
     owner,
     repo,
     issue_number,
-    milestone:2,
+    milestone: milestoneNumberToSet,
   });
 }
 if(octokit){
