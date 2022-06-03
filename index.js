@@ -43,7 +43,7 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 52;
   } else if (etiquettesTicketJira.includes("ARGON")) {
     core.info("on set ARGON");
-    return 2;
+    return 54;
   } else return defaultMilestone;
 }
 
@@ -72,26 +72,12 @@ async function run() {
       );
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
-    await updateMileStone(milestoneNumberToSet)
     core.setOutput("milestone", milestoneNumberToSet);
-    const octokit = require("@octokit/rest")({
-      log: console,
-    });
   } catch (error) {
     core.setFailed(error.message);
   }
 }
-async function updateMileStone(milestoneNumberToSet){
 
-  core.info(`in update = ${milestoneNumberToSet} ${pr_number}`)
-   await octokit.rest.issues.update({
-    owner,
-    repo,
-    title : 'new title vvvv' ,
-    issue_number: 9,
-    milestone: 5,
-  });
-}
 if(octokit){
   run();
 }

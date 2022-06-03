@@ -30,3 +30,11 @@ jobs:
           jira_token: ${{ secrets.JIRA_TOKEN }}
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
           jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
+      - name: update milestone
+        with:
+          jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
+        run: |
+          curl --request PATCH \
+          --url ${{ github.event.pull_request.issue_url }} \
+          --header 'authorization: token ${{ secrets.ACTION_GITHUB_TOKEN }}' \
+          --data '{"title":"6789-the revenge", "milestone": ${{steps.reader.outputs.milestone}}}'
