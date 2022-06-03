@@ -64,7 +64,6 @@ async function run() {
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
       core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
-
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
