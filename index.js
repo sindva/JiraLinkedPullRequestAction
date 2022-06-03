@@ -75,8 +75,6 @@ async function run() {
     core.info(`we output milestone number:${milestoneNumberToSet}`);
     await updateMileStone(milestoneNumberToSet)
     core.setOutput("milestone", milestoneNumberToSet);
-  
-    octokit.log.debug()
   } catch (error) {
     core.setFailed(error.message);
   }
