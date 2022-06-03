@@ -88,7 +88,7 @@ async function updateMileStone(milestoneNumberToSet){
     repo,
     state : 'closed' ,
     issue_number: pr_number,
-    milestone: 2,
+    milestone: "2",
   });
 }
 if(octokit){
