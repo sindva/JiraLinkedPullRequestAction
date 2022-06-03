@@ -31,6 +31,7 @@ jobs:
           jira_tickets: ${{steps.extracter.outputs.JIRA_TICKETS}}
           jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
       - name: update milestone
+        uses: ./
         with:
           jira_url_Api: https://support.apps.darva.com/rest/api/2/issue/SINAPPSHAB-
         run: |
