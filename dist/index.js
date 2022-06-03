@@ -59273,7 +59273,6 @@ async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
   const url = jira_url_Api + ticket;
-  core.info(url)
   const toto = fetch(url, {
     method: "GET",
     headers: {
