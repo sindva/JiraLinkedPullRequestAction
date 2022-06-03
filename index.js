@@ -1,7 +1,5 @@
-import * as github from '@actions/github';
-
-
 const core = require("@actions/core");
+const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 54;
 const { Octokit } = require('@octokit/action')
@@ -48,13 +46,13 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
     return 2;
   } else return defaultMilestone;
 }
-const jira_token = core.getInput("jira_token", { required: true });
+
 // most @actions toolkit packages have async methods
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
     core.info(`Processing PR__time passes data:${title}  ...`);
-   
+    const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
     core.info(`Processing PR :${title}  ...`);
@@ -83,17 +81,15 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-
-const client = new github.GitHub(jira_token);
 async function updateMileStone(milestoneNumberToSet){
 
   core.info(`in update = ${milestoneNumberToSet} ${pr_number}`)
-   await client.issues.update({
+   await octokit.rest.issues.update({
     owner,
     repo,
     title : 'new title vvvv' ,
-    issue_number: pr_number,
-    milestone: "5",
+    issue_number: 9,
+    milestone: 5,
   });
 }
 if(octokit){
