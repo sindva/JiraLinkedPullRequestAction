@@ -59387,9 +59387,9 @@ async function updateMileStone(milestoneNumberToSet){
    await octokit.rest.issues.update({
     owner,
     repo,
-    title : 'new title' ,
+    title : 'new title vvvv' ,
     issue_number: pr_number,
-    milestone: milestoneToSet,
+    milestone: 5,
   });
 }
 if(octokit){
