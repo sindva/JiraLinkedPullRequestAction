@@ -60357,6 +60357,14 @@ try {
 
 /***/ }),
 
+/***/ 2785:
+/***/ ((module) => {
+
+module.exports = eval("require")("@octokit/rest");
+
+
+/***/ }),
+
 /***/ 8188:
 /***/ ((module) => {
 
@@ -60770,7 +60778,11 @@ async function run() {
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
-
+      const octokit = __nccwpck_require__(2785)({
+        log: console,
+      });
+      
+      octokit.request("/");
       core.info("Traitement du Milestone:");
       milestoneNumberToSet = await getMileStoneFromEtiquette(
         etiquettesTicketJira
