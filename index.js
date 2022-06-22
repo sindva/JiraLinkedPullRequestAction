@@ -34,9 +34,7 @@ async function setJiraTicketToStatusTerminé(ticket, jira_token) {
       Authorization: `Basic ${jira_token}`,
       Accept: "application/json",
     },
-    body: JSON.stringify({
-      "transition": { "id": "41" }
-    })
+    body: { transition: { id: "41" } }
   })
     .then((response) => {
       const res = response.json();
