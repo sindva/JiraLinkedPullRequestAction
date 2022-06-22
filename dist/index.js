@@ -8549,8 +8549,9 @@ async function run() {
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
-      core.info(`after  getJiraTicket`);
+      core.info(`before status JiraTicket`);
       setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
+      core.info(`after status JiraTicket`);
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
       core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
