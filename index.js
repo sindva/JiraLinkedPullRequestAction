@@ -2,11 +2,12 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 56;
+
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
   const url = jira_url_Api + ticket;
-  const toto = fetch(url, {
+  const resp = fetch(url, {
     method: "GET",
     headers: {
       Authorization: `Basic ${jira_token}`,
@@ -20,7 +21,31 @@ async function getJiraTicket(ticket, jira_token) {
     })
     .catch((err) => core.info(err));
 
-  return toto;
+  return resp;
+}
+
+async function setJiraTicketToStatusTerminé(ticket, jira_token) {
+  core.info(`in  getJiraTicket ${ticket} `);
+  const jira_url_Api= core.getInput("jira_url_Api", { required: true });
+  const url = jira_url_Api + ticket + '/transitions';
+  const resp = fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${jira_token}`,
+      Accept: "application/json",
+    },
+    data: {
+      "transition": { "id": "41" }
+    }
+  })
+    .then((response) => {
+      const res = response.json();
+      core.info(`response ${res}`);
+      return res;
+    })
+    .catch((err) => core.info(err));
+
+  return resp;
 }
 
 async function getMileStoneFromEtiquette(etiquettesTicketJira) {
@@ -55,6 +80,7 @@ async function run() {
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
       core.info(`after  getJiraTicket`);
+      setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
       core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
