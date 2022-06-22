@@ -8498,13 +8498,13 @@ async function setJiraTicketToStatusTerminé(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
   const url = jira_url_Api + ticket + '/transitions';
-  const resp = fetch(url, {
+  fetch(url, {
     method: "POST",
     headers: {
       Authorization: `Basic ${jira_token}`,
       Accept: "application/json",
     },
-    body: { transition: { id: "41" } }
+    body: JSON.stringify({ transition: { id: "41" } })
   })
     .then((response) => {
       const res = response.json();
@@ -8512,8 +8512,6 @@ async function setJiraTicketToStatusTerminé(ticket, jira_token) {
       return res;
     })
     .catch((err) => core.info(err));
-
-  return resp;
 }
 
 async function getMileStoneFromEtiquette(etiquettesTicketJira) {
@@ -8548,7 +8546,7 @@ async function run() {
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
       core.info(`before status JiraTicket`);
-      setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
+      await setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
       core.info(`after status JiraTicket`);
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
