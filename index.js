@@ -2,11 +2,12 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fetch = require("node-fetch");
 const defaultMilestone = 56;
+
 async function getJiraTicket(ticket, jira_token) {
   core.info(`in  getJiraTicket ${ticket} `);
   const jira_url_Api= core.getInput("jira_url_Api", { required: true });
   const url = jira_url_Api + ticket;
-  const toto = fetch(url, {
+  const resp = fetch(url, {
     method: "GET",
     headers: {
       Authorization: `Basic ${jira_token}`,
@@ -20,7 +21,7 @@ async function getJiraTicket(ticket, jira_token) {
     })
     .catch((err) => core.info(err));
 
-  return toto;
+  return resp;
 }
 
 async function getMileStoneFromEtiquette(etiquettesTicketJira) {
@@ -46,18 +47,18 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
-    core.info(`Processing PR__time passes data:${title}  ...`);
+    const existingMilestone = github.context.payload.pull_request.milestone;
     const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
-    core.info(`Processing PR :${title}  ...`);
+    core.info(`Processing PR :${title}  ... milestone ${existingMilestone && existingMilestone.title}`);
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
-      core.info(`after  getJiraTicket`);
+      await setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
-      core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
+      core.info(`found  etiquettesTicketJira ${etiquettesTicketJira}`);
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
@@ -65,6 +66,10 @@ async function run() {
       milestoneNumberToSet = await getMileStoneFromEtiquette(
         etiquettesTicketJira
       );
+    } else {
+      if ( existingMilestone !== null ) {
+        milestoneNumberToSet = existingMilestone.number;
+      }
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
     core.setOutput("milestone", milestoneNumberToSet);
