@@ -52,7 +52,7 @@ async function run() {
     const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
-    core.info(`Processing PR :${title}  ... milestone ${existingMilestone}`);
+    core.info(`Processing PR :${title}  ... milestone ${existingMilestone && existingMilestone.title}`);
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
