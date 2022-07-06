@@ -8494,26 +8494,6 @@ async function getJiraTicket(ticket, jira_token) {
   return resp;
 }
 
-async function setJiraTicketToStatusTerminé(ticket, jira_token) {
-  core.info(`in  getJiraTicket ${ticket} `);
-  const jira_url_Api= core.getInput("jira_url_Api", { required: true });
-  const url = jira_url_Api + ticket + '/transitions';
-  fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${jira_token}`,
-      Accept: "application/json",
-    },
-    body: JSON.stringify({ transition: { id: "41" } })
-  })
-    .then((response) => {
-      const res = response.json();
-      core.info(`response ${res}`);
-      return res;
-    })
-    .catch((err) => core.info(err));
-}
-
 async function getMileStoneFromEtiquette(etiquettesTicketJira) {
   if (etiquettesTicketJira.includes("PHOSPHORE")) {
     core.info("on set PHOSPHORE");
@@ -8537,11 +8517,12 @@ async function getMileStoneFromEtiquette(etiquettesTicketJira) {
 async function run() {
   try {
     const title = github.context.payload.pull_request.title;
+    const existingMilestone = github.context.payload.pull_request.milestone;
     core.info(`Processing PR__time passes data:${title}  ...`);
     const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
-    core.info(`Processing PR :${title}  ...`);
+    core.info(`Processing PR :${title}  ... milestone ${existingMilestone}`);
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
@@ -8558,6 +8539,10 @@ async function run() {
       milestoneNumberToSet = await getMileStoneFromEtiquette(
         etiquettesTicketJira
       );
+    } else {
+      if ( existingMilestone !== null ) {
+        milestoneNumberToSet = existingMilestone;
+      }
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
     core.setOutput("milestone", milestoneNumberToSet);
