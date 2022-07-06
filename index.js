@@ -48,7 +48,6 @@ async function run() {
   try {
     const title = github.context.payload.pull_request.title;
     const existingMilestone = github.context.payload.pull_request.milestone;
-    core.info(`Processing PR__time passes data:${title}  ...`);
     const jira_token = core.getInput("jira_token", { required: true });
     const inputJiraTickets =  core.getInput("jira_tickets", { required: false })
     const JIRA_TICKETS = inputJiraTickets ?  JSON.parse(inputJiraTickets) :[] ;
@@ -56,12 +55,10 @@ async function run() {
     let milestoneNumberToSet = defaultMilestone;
     if (JIRA_TICKETS.length > 0) {
       const jsonTicket = await getJiraTicket(JIRA_TICKETS[0], jira_token);
-      core.info(`before status JiraTicket`);
       await setJiraTicketToStatusTerminé(JIRA_TICKETS[0], jira_token)
-      core.info(`after status JiraTicket`);
       //on récupere la liste des etiquettes du Jira
       const etiquettesTicketJira = jsonTicket.fields.labels;
-      core.info(`after  etiquettesTicketJira ${etiquettesTicketJira}`);
+      core.info(`found  etiquettesTicketJira ${etiquettesTicketJira}`);
       core.info(
         `Etiquettes trouvées dans le ticket Jira:${etiquettesTicketJira}`
       );
