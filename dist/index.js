@@ -8541,7 +8541,7 @@ async function run() {
       );
     } else {
       if ( existingMilestone !== null ) {
-        milestoneNumberToSet = existingMilestone;
+        milestoneNumberToSet = existingMilestone.number;
       }
     }
     core.info(`we output milestone number:${milestoneNumberToSet}`);
